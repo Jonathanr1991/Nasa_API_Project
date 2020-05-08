@@ -4,10 +4,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class PicOfTheDay extends Component {
-
   constructor(props) {
     super(props);
-   
+
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
@@ -16,7 +15,7 @@ export default class PicOfTheDay extends Component {
     };
   }
 
-  handleChangedate= (NewDate) => {
+  handleChangedate = (NewDate) => {
     this.setState({ date: NewDate });
   };
   onSubmit(e) {
@@ -38,40 +37,37 @@ export default class PicOfTheDay extends Component {
 
   render() {
     if (this.props.data.apod) {
-    
-        return (
-          <div>
-            <form onSubmit={this.onSubmit}>
-            <DatePicker
-              selected={this.state.date}
-              onChange={this.handleChangedate}
+      return (
+        <div>
+          <div className="card">
+            <img 
+              src={this.props.data.apod_picture.url}
+              className="card-img-top"
+              alt={this.props.data.apod_picture.title}
             />
-            <button type="submit">Change Date</button>
-            </form>
-          
-            <div className="card">
-              <img
-                src={this.props.data.apod_picture.url}
-                className="card-img-top"
-                alt={this.props.data.apod_picture.title}
-              />
-              <div className="card-body">
-                <h5 className="card-title">
-                  {this.props.data.apod_picture.title}
-                </h5>
-                <p className="card-text">
-                  {this.props.data.apod_picture.explanation}
-                </p>
-                <a href="#" className="btn btn-primary">
-                  Go somewhere
-                </a>
+            <div className="card-body">
+              <h5 className="card-title">
+                {this.props.data.apod_picture.title}
+              </h5>
+              <p className="card-text">
+                {this.props.data.apod_picture.explanation}
+              </p>
+              <div className="container">
+              <form onSubmit={this.onSubmit}>
+                <DatePicker
+                  selected={this.state.date}
+                  onChange={this.handleChangedate}
+                />
+                <button type="submit" className="btn btn-primary">
+                  Change Date
+                </button>
+              </form>
               </div>
+             
             </div>
           </div>
-        );
-      
-     
-      
+        </div>
+      );
     } else {
       return <div></div>;
     }
