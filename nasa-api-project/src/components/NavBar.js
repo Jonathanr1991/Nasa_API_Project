@@ -23,12 +23,19 @@ export default class NavBar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-dark bg-dark justify-content-between">
+        <div>
+            <div className="navbar navbar-expand navbar-dark bg-dark ">
         <a className="navbar-brand">Astronomy 181</a>
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
+        <ul className="navbar-nav nav-justified">
+        
+          <li className="nav-item active ">
+            <a className="nav-link" href="#" onClick={this.props.setHomePage}>
+              Home
+            </a>
+          </li>
+          <li className="nav-item active col">
             <a className="nav-link" href="#" onClick={this.onClickAPOD}>
-              APOD <span className="sr-only">(current)</span>
+              APOD
             </a>
           </li>
         </ul>
@@ -46,7 +53,9 @@ export default class NavBar extends Component {
             Search
           </button>
         </form>
-      </nav>
+      </div>
+        </div>
+      
     );
   }
 }

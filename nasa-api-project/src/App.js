@@ -5,10 +5,13 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/NavBar";
 import PicOfTheDay from "./components/PicOfTheDay";
+import HomePage from "./components/homePage"
 export default class App extends Component {
   state = {
     apod: false,
+    home: true,
     apod_picture: "",
+    searched_pictures: [],
   };
 
 
@@ -18,13 +21,19 @@ export default class App extends Component {
   }
 
   setAPOD(){
-    this.setState({apod: true})
+    this.setState({apod: true,
+    home:false})
+  }
+  setHomePage(){
+    this.setState({apod: false,
+      home: true})
   }
   render() {
     return (
       <Router>
         <div className="container">
-          <Navbar data={this.state} set_APOD_Picture={this.setAPODPicture.bind(this)} setAPOD={this.setAPOD.bind(this)}/>
+          <Navbar data={this.state} set_APOD_Picture={this.setAPODPicture.bind(this)} setAPOD={this.setAPOD.bind(this)} setHomePage= {this.setHomePage.bind(this)}/>
+          <HomePage data={this.state}/>
           <PicOfTheDay data={this.state} set_APOD_Picture={this.setAPODPicture.bind(this)}/>
         </div>
       </Router>

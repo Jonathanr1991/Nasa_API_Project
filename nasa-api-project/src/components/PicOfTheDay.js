@@ -21,12 +21,15 @@ export default class PicOfTheDay extends Component {
   onSubmit(e) {
     e.preventDefault();
 
+    var month = this.state.date.getMonth()+1;
+    console.log(month);
+
     axios
       .get(
         "https://api.nasa.gov/planetary/apod?api_key=VDI7LcD6V4xhR2rmcjBfsm4oeBA6RhFdtLiav8qf&date=" +
           this.state.date.getFullYear() +
           "-" +
-          this.state.date.getMonth() +
+          month +
           "-" +
           this.state.date.getDate()
       )
