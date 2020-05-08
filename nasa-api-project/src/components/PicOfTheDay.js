@@ -1,46 +1,79 @@
-import React, {component, Component, useState} from 'react';
-import axios from 'axios'
-
+import React, { Component } from "react";
+import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class PicOfTheDay extends Component {
 
-    state = {
-        pic: [],
-        done: false
-    }
+  constructor(props) {
+    super(props);
+   
+    this.onSubmit = this.onSubmit.bind(this);
 
-    getPicture(){
-        
+    this.state = {
+      pic: [],
+      date: new Date(),
+    };
+  }
 
-        axios.get('https://api.nasa.gov/planetary/apod?api_key=VDI7LcD6V4xhR2rmcjBfsm4oeBA6RhFdtLiav8qf')
-        .then(res => {
-            console.log(res.data)
-            this.setState({pic: res.data, done: true})
-        })
-    }
+  handleChangedate= (NewDate) => {
+    this.setState({ date: NewDate });
+  };
+  onSubmit(e) {
+    e.preventDefault();
 
-    render () {
-        if(!this.state.done){
-            return (
+    axios
+      .get(
+        "https://api.nasa.gov/planetary/apod?api_key=VDI7LcD6V4xhR2rmcjBfsm4oeBA6RhFdtLiav8qf&date=" +
+          this.state.date.getFullYear() +
+          "-" +
+          this.state.date.getMonth() +
+          "-" +
+          this.state.date.getDate()
+      )
+      .then((res) => {
+        this.props.set_APOD_Picture(res.data);
+      });
+  }
 
-            
-            
-                <div>
-                     <button onClick={this.getPicture}>get pic</button>
-                     <div className="card" >
-                     <img src={this.state.pic.url} className="card-img-top"/>
-                     <div className="card-body">
-                         <h5 className="card-title">{this.state.pic.title}</h5>
-                         <p className="card-text">{this.state.pic.explanation}</p>
-                         <a href="#" className="btn btn-primary">Go somewhere</a>
-                     </div>
-                     </div>
+  render() {
+    if (this.props.data.apod) {
+    
+        return (
+          <div>
+            <form onSubmit={this.onSubmit}>
+            <DatePicker
+              selected={this.state.date}
+              onChange={this.handleChangedate}
+            />
+            <button type="submit">Change Date</button>
+            </form>
+          
+            <div className="card">
+              <img
+                src={this.props.data.apod_picture.url}
+                className="card-img-top"
+                alt={this.props.data.apod_picture.title}
+              />
+              <div className="card-body">
+                <h5 className="card-title">
+                  {this.props.data.apod_picture.title}
+                </h5>
+                <p className="card-text">
+                  {this.props.data.apod_picture.explanation}
+                </p>
+                <a href="#" className="btn btn-primary">
+                  Go somewhere
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      
      
-                     
-     
-                </div>
-             );
-        }
-       
+      
+    } else {
+      return <div></div>;
     }
+  }
 }
