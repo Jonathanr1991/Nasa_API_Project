@@ -34,8 +34,8 @@ export default class HomePage extends Component {
               </h5>
               <p className="card-text">
                 This site allow you to access NASA Photo Library. You can navagate to the Astronomy Picture of the Day using the top navagation bar. There you will find the picture of the 
-                day. Towards the bottom you will find a date selector. click on it and you can adjust the date and when you press the button a new picture will render. You can also search 
-                Nasa Photo Library and view results using the search field at the top. 
+                day. Towards the bottom you will find a date selector. click on it and you can adjust the date and when you press the button a new picture will render. You can also use the Distance
+                of Object tab to compare relative distance between objects from earth. 
               </p>
               <div className="container">
               

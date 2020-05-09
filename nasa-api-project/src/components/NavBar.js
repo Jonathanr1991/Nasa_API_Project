@@ -6,7 +6,14 @@ export default class NavBar extends Component {
     super(props);
 
     this.onClickAPOD = this.onClickAPOD.bind(this);
-    this.state = {};
+    this.state = {
+        searchText: "",
+    };
+  }
+  handleSearchText(e){
+      e.preventDefault();
+      this.setState({searchText: this.target.value});
+
   }
   onClickAPOD(e) {
     e.preventDefault();
@@ -19,6 +26,11 @@ export default class NavBar extends Component {
       .then((res) => {
         this.props.set_APOD_Picture(res.data);
       });
+  }
+  onSubmit(e){
+      e.preventDefault();
+
+      axios.get("https://images-api.nasa.gov/search?q=")
   }
 
   render() {
@@ -38,6 +50,11 @@ export default class NavBar extends Component {
               APOD
             </a>
           </li>
+          <li className="nav-item active col">
+            <a className="nav-link" href="#" onClick={this.props.setDistance}>
+              Distance of Objects
+            </a>
+          </li>
         </ul>
         <form className="form-inline">
           <input
@@ -45,6 +62,7 @@ export default class NavBar extends Component {
             type="search"
             placeholder="Search"
             aria-label="Search"
+            onChange={this.handleSearchText}
           />
           <button
             className="btn btn-outline-success my-2 my-sm-0"
